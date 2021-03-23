@@ -108,21 +108,24 @@ struct etat_suite{
 	etat_lect e2_2_lect = creation_etat_lect(2,2, &e2_2);
 
 //_________________________________________________________________
-
+//int action_etat(int etat, etat_lect zero, etat_lect un, etat_lect deux, int *vec, int position){ /
 	etat_suite e3_0 = creation_etat_suite(4,1,-1);
-	etat_lect e3_0_lect = creation_etat_lect(3,0, &e2_0);
+	etat_lect e3_0_lect = creation_etat_lect(3,0, &e3_0);
 
 	etat_suite e3_1 = creation_etat_suite(3,0,-1);
-	etat_lect e3_1_lect = creation_etat_lect(3,1, &e2_1);
+	etat_lect e3_1_lect = creation_etat_lect(3,1, &e3_1);
 
 	etat_suite e3_2 = creation_etat_suite(4,1,-1);
-	etat_lect e3_2_lect = creation_etat_lect(3,2, &e2_2);
+	etat_lect e3_2_lect = creation_etat_lect(3,2, &e3_2);
 
 //_________________________________________________________________
+	int position = 0;
+	action_etat(1, e1_2_lect, e1_2_lect, e1_2_lect, vec, position);  
+	action_etat(2, e2_0_lect,e2_1_lect, e2_2_lect, vec, position);
+	action_etat(3, e3_0_lect,e3_1_lect, e3_2_lect, vec, position);
 
-	int nouvel_etat = action_etat(1, e1_2_lect, e1_2_lect, e1_2_lect, vec, 0);  
+	printf("Voici le vecteur : \n");
 	
-	printf("la valeur de nouvel etat: %d \n", nouvel_etat);
-	
+	aff(vec, 6);
 }
 
