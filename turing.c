@@ -95,25 +95,7 @@ int action_etat(int etat, etat_lect zero, etat_lect un, etat_lect deux, int *vec
     }
     return position;
 }
-
-int main() {
-/*struct etat_lect {
-	int etat; 
-	int lu;
-	struct etat_suite * nxt; 
-};
-struct etat_suite{
-	int nouvel_etat;
-	int ecrit;
-	int deplacement;
-};*/
-
-	// 1 = droite , -1 = gauche
-//etat_lect creation_etat_lect(int etat, int lu, etat_suite * nxt){
-
-	int vec[6];
-	remplirvec(vec);
-	aff(vec,6);
+void execution(int *vec){
 //_________________________________________________________________
 //etat_suite creation_etat_suite(int nouvel_etat, int ecrit, int deplacement){
 
@@ -149,7 +131,27 @@ struct etat_suite{
 	
 	position = action_etat(2, e2_0_lect,e2_1_lect, e2_2_lect, vec, position);
 	action_etat(3, e3_0_lect,e3_1_lect, e3_2_lect, vec, position);
+}
 
+int main() {
+/*struct etat_lect {
+	int etat; 
+	int lu;
+	struct etat_suite * nxt; 
+};
+struct etat_suite{
+	int nouvel_etat;
+	int ecrit;
+	int deplacement;
+};*/
+
+	// 1 = droite , -1 = gauche
+//etat_lect creation_etat_lect(int etat, int lu, etat_suite * nxt){
+
+	int vec[6];
+	remplirvec(vec);
+	aff(vec,6);
+	execution(vec);
 	printf("Voici le vecteur : \n");
 	
 	aff(vec, 6);
