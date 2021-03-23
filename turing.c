@@ -48,7 +48,7 @@ void remplirvec(int * vec){
 }
 
 
-int action_etat(int etat, etat_lect zero, etat_lect un, etat_lect deux, int *vec, int position){ //pour un etat donné, on exécute tant qu'on reste dedans
+/*int action_etat(int etat, etat_lect zero, etat_lect un, etat_lect deux, int *vec, int position){ //pour un etat donné, on exécute tant qu'on reste dedans
 //on reste dans la boucle tant que l'on reste dans le même état 
 	int etat_actuel = etat;
 	while(etat_actuel == etat){
@@ -69,7 +69,32 @@ int action_etat(int etat, etat_lect zero, etat_lect un, etat_lect deux, int *vec
 		}	
 	}
 	return etat_actuel;
-} 
+}*/
+
+int action_etat(int etat, etat_lect zero, etat_lect un, etat_lect deux, int *vec, int position){ //pour un etat donné, on exécute tant qu'on reste dedans
+    //on reste dans la boucle tant que l'on reste dans le même état 
+    int etat_actuel = etat;
+    while(etat_actuel == etat){
+	switch(vec[position]){
+	case 0:
+	    etat_actuel = (zero.nxt) -> nouvel_etat; // l'état actuel vaut sont nouvel état (de nxt)
+	    vec[position] = (zero.nxt) -> ecrit; // vecteur à la position "position" prend la valeur de écrit de nxt
+	    position += (zero.nxt) -> deplacement;
+	    break;
+	case 1:
+	    etat_actuel = (un.nxt) -> nouvel_etat;
+	    vec[position] = (un.nxt) -> ecrit;
+	    position += (un.nxt) -> deplacement;
+	    break;
+	case 2:
+	    etat_actuel = (deux.nxt) -> nouvel_etat;
+	    vec[position] = (deux.nxt) -> ecrit;
+	    position += (deux.nxt) -> deplacement;
+	    break;
+	}
+    }
+    return position;
+}
 
 int main() {
 /*struct etat_lect {
@@ -120,8 +145,9 @@ struct etat_suite{
 
 //_________________________________________________________________
 	int position = 0;
-	action_etat(1, e1_2_lect, e1_2_lect, e1_2_lect, vec, position);  
-	action_etat(2, e2_0_lect,e2_1_lect, e2_2_lect, vec, position);
+	position = action_etat(1, e1_2_lect, e1_2_lect, e1_2_lect, vec, position);
+	
+	position = action_etat(2, e2_0_lect,e2_1_lect, e2_2_lect, vec, position);
 	action_etat(3, e3_0_lect,e3_1_lect, e3_2_lect, vec, position);
 
 	printf("Voici le vecteur : \n");
