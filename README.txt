@@ -6,29 +6,29 @@
 
 La mise en place de la structure de notre machine de Turing:
 
-Le début de notre code est séparer de deux structure : - "etat_lect" qui est l'état de base de la machine au tous debut avec un "lu" comme second arguement qui sera 
-						         donc l'element lu de cette etat et enfin un pointeur vers une autre strut.
-						       - "etat_suite" qui se trouve est la suite de "etat_lect" qui contient le nouvelle etat, le nombre qu'il doit ecrire 
-						         puis le deplacement qui doit effectuer( 1 = deplacement vers la droite et -1 vers la gauche).
-Nous avons par la suite initer deux type def afin de raccourcir notre code.
+En résumé: ça se présente sous la forme (etat, lu) -> (nouvel_etat, ecrit, déplacement)
+
+En détail:
+   Le début de notre code est séparer de deux structure :
+   - "etat_lect" contenant l'état dans lequel on est (un int), également un entier "lu" comme second argument qui sera l'élement lu pour cet etat (il peut prendre la valeur 0, 1 qui représente les valeurs binaire, et 2 qui représente une case vide), et enfin un pointeur vers un struct "etat_suite".
+   - "etat_suite" qui contient le nouvelle etat (lorsque "lu" est lu dans le vecteur), le nombre à ecrire à la place de l'endroit lu, ainsi que le deplacement qui doit effectuer( 1 = deplacement vers la droite, -1 vers la gauche).
+   Nous avons par la suite écrit deux type def afin de raccourcir notre code.
+
+Chaque état possède 3 etat_lect, pour les différents élément qu'il est possible de lire (0, 1 et 2). 
+(Pour notre programme qui ajoute 1, on a pas fait 3 etat_lect pour le 1er état, ce n'était pas nécessaire)
 
 //-------------------- Les fonctions --------------------\\
 
-La fonction "creation_etat_lect" remplie une struture (initialise donc notre premiere ligne de notre tableau de Turing) puis renvoie un "etat_lect",
-"creation_etat_suit" une la continuation de la précédante elle permet de construire la suite de la de nos etats déjà fabriquer précédament.
+La fonction "creation_etat_lect" permet de créer un struct etat_lect, ça renvoie un "etat_lect", "creation_etat_suit" permet de créer un struct etat_suite
 
 La fonction "aff" permet d'affiche le vecteur qui sera utiliser pou nos futur transaction avec notre programme.
 
 La fonction "remplirvec" permet juste de remplir un vecteur a une certaine taille fixe.
 
-la fonction "action_etat"(nom a redifinr plus tard car elle n'est pas tres explicite) 
-permet de rajouter 1 dans notre bande (vecteur) remplie de 0 et de 1 (et de 2 mais eux représente le NULL dans notre code).
-Selon le nombre actuel de la bande, on redefinie un nouvel etat pour ensuite réecrire la bande selon la suite de cette etat 
-et enfin un deplacement de la bande de la gauche ou vers la droite selon ou en ai la fonction.
-Enfi la fonction s'arrete dès qu'on atteint l'etat 4.
+la fonction "action_etat" (nom a redéfinir plus tard car elle n'est pas très explicite)  permet d'exécuter un état donné, jusqu'à qu'on atteigne l'état suivant. Elle renvoie la position à la fin de "l'exécution de l'état".
 
-La fonction "execute" permet "d'initier" le tableau de transaction de notre machine de turing.
-Elle est initialiser avant la fonction "action_etat" car cette dernier ne peut pas le faire sans cette derniere.
+
+La fonction "execute" permet d'exécuter le tableau de transaction de notre machine de turing.
 
 //-------------------- A faire dans le futur --------------------\\
 
@@ -39,4 +39,4 @@ Elle est initialiser avant la fonction "action_etat" car cette dernier ne peut p
 	-creer une fonction qui calcule la taille d'un vecteur (ez ca);
 -Pouvoir faire la meme chose mais avec une liste chaine;
 
-***** MAIS SURTOUT ATTENDRE LA VALIDATION DE LA MANIERE QU'ON VIEN DE FAIRE PAR LES PROF *****
+***** MAIS SURTOUT ATTENDRE LA VALIDATION DE LA LA MACHINE DE TURING ACTUELLE PAR LES PROFS *****
