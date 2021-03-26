@@ -7,7 +7,7 @@ struct etat_lect {
     struct etat_suite * nxt; 
 };
 struct etat_suite{
-    int nouvel_etat;
+    int etat_suivant;
     int ecrit;
     int deplacement;
 };
@@ -23,9 +23,9 @@ etat_lect creation_etat_lect(int etat, int lu, etat_suite * nxt){
     return x;
 }
 
-etat_suite creation_etat_suite(int nouvel_etat, int ecrit, int deplacement){
+etat_suite creation_etat_suite(int etat_suivant, int ecrit, int deplacement){
     etat_suite x;
-    x.nouvel_etat = nouvel_etat;
+    x.etat_suivant = etat_suivant;
     x.ecrit = ecrit;
     x.deplacement = deplacement;
     return x;
@@ -115,17 +115,17 @@ void remplirvec(int * vec, int nb){
     int etat_actuel = etat;
     while(etat_actuel == etat){
         if(vec[position] == zero.lu){
-            etat_actuel = (zero.nxt) -> nouvel_etat; // l'état actuel vaut sont nouvel état (de nxt)
+            etat_actuel = (zero.nxt) -> etat_suivant; // l'état actuel vaut sont nouvel état (de nxt)
             vec[position] = (zero.nxt) -> ecrit; // vecteur à la position "position" prend la valeur de écrit de nxt
             position += (zero.nxt) -> deplacement;
         }
         if(vec[position] == un.lu && etat_actuel == etat){ // le and pour vérifier si etat_actuel n'a pas déjà changer
-            etat_actuel = (un.nxt) -> nouvel_etat;
+            etat_actuel = (un.nxt) -> etat_suivant;
             vec[position] = (un.nxt) -> ecrit;
             position += (un.nxt) -> deplacement;
         }
         if(vec[position] == deux.lu && etat_actuel == etat){
-            etat_actuel = (deux.nxt) -> nouvel_etat;
+            etat_actuel = (deux.nxt) -> etat_suivant;
             vec[position] = (deux.nxt) -> ecrit;
             position += (deux.nxt) -> deplacement;
         }    
@@ -139,17 +139,17 @@ int action_etat(int etat, etat_lect zero, etat_lect un, etat_lect deux, int *vec
 
 	switch(vec[position]){
 	case 0:
-	    etat_actuel = (zero.nxt) -> nouvel_etat; // l'état actuel vaut sont nouvel état (de nxt)
+	    etat_actuel = (zero.nxt) -> etat_suivant; // l'état actuel vaut sont nouvel état (de nxt)
 	    vec[position] = (zero.nxt) -> ecrit; // vecteur à la position "position" prend la valeur de écrit de nxt
 	    position += (zero.nxt) -> deplacement;
 	    break;
 	case 1:
-	    etat_actuel = (un.nxt) -> nouvel_etat;
+	    etat_actuel = (un.nxt) -> etat_suivant;
 	    vec[position] = (un.nxt) -> ecrit;
 	    position += (un.nxt) -> deplacement;
 	    break;
 	case 2:
-	    etat_actuel = (deux.nxt) -> nouvel_etat;
+	    etat_actuel = (deux.nxt) -> etat_suivant;
 	    vec[position] = (deux.nxt) -> ecrit;
 	    position += (deux.nxt) -> deplacement;
 	    break;
@@ -163,7 +163,7 @@ int action_etat(int etat, etat_lect zero, etat_lect un, etat_lect deux, int *vec
 
 void execution(int *vec){
 //_________________________________________________________________
-//etat_suite creation_etat_suite(int nouvel_etat, int ecrit, int deplacement){
+//etat_suite creation_etat_suite(int etat_suivant, int ecrit, int deplacement){
 
 
     etat_suite e1_2 = creation_etat_suite(2,2,1);
@@ -228,7 +228,7 @@ int main() {
     struct etat_suite * nxt; 
 };
 struct etat_suite{
-    int nouvel_etat;
+    int etat_suivant;
     int ecrit;
     int deplacement;
 };*/
