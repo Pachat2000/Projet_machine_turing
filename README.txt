@@ -67,4 +67,4 @@ ______________________________________________________________
 |  état 3   |     2    |      1      |   gauche  | état final |
 |=============================================================|
 
-Le ruban est créer a partir d'un vecteur déjà prédeterminer.
+Le ruban est créer a partir d'un vecteur déjà prédeterminer,que l'on peut choisir selon le nombre que tu a mis entre 0, 1 et 2.
