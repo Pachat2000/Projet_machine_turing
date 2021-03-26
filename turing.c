@@ -32,11 +32,47 @@ etat_suite creation_etat_suite(int nouvel_etat, int ecrit, int deplacement){
 }
 
 void aff(int *vec, int size){
-    int i;
-    for(i = 0; i<size;i++){
-    printf("%d",vec[i]);
+	int i;
+	for(i = 0; i<size;i++){
+	printf("%d",vec[i]);
+	}
+	printf("\n");
+}
+
+void remplirvec(int * vec, int nb){
+    switch(nb){
+    case 0:
+	vec[0]= 2;
+	vec[1]= 1;
+	vec[2]= 1;
+	vec[3]= 1;
+	vec[4]= 1;
+	vec[5] = 2;
+	break;
+    case 1:
+	vec[0]= 2;
+	vec[1]= 1;
+	vec[2]= 0;
+	vec[3]= 1;
+	vec[4]= 0;
+	vec[5] = 1;
+	vec[6] = 1;
+	vec[7] = 2;
+	break;
+    case 2:
+	vec[0]= 2;
+	vec[1]= 1;
+	vec[2]= 0;
+	vec[3]= 1;
+	vec[4]= 2;
+	break;
+    default:
+	vec[0]= 2;
+	vec[1]= 1;
+	vec[2]= 2;
+	break;
+	
     }
-    printf("\n");
 }
 
 void remplirvec(int * vec, int nb){
@@ -100,8 +136,31 @@ int action_etat(int etat, etat_lect zero, etat_lect un, etat_lect deux, int *vec
     //on reste dans la boucle tant que l'on reste dans le même état 
     int etat_actuel = etat;
     while(etat_actuel == etat){
-    switch(vec[position]){
-    case 0:
+
+	switch(vec[position]){
+	case 0:
+	    etat_actuel = (zero.nxt) -> nouvel_etat; // l'état actuel vaut sont nouvel état (de nxt)
+	    vec[position] = (zero.nxt) -> ecrit; // vecteur à la position "position" prend la valeur de écrit de nxt
+	    position += (zero.nxt) -> deplacement;
+	    break;
+	case 1:
+	    etat_actuel = (un.nxt) -> nouvel_etat;
+	    vec[position] = (un.nxt) -> ecrit;
+	    position += (un.nxt) -> deplacement;
+	    break;
+	case 2:
+	    etat_actuel = (deux.nxt) -> nouvel_etat;
+	    vec[position] = (deux.nxt) -> ecrit;
+	    position += (deux.nxt) -> deplacement;
+	    break;
+	}
+    }
+    return position;
+}
+
+
+
+
 void execution(int *vec){
 //_________________________________________________________________
 //etat_suite creation_etat_suite(int nouvel_etat, int ecrit, int deplacement){
@@ -142,23 +201,23 @@ void execution(int *vec){
 }
 
 void inverse(int * vec){
-    etat_suite e1_2 = creation_etat_suite(2,2,1);
-    etat_lect e1_2_lect = creation_etat_lect(1,2, &e1_2);
-    
-    etat_suite e2_0 = creation_etat_suite(2,1,1);
-    etat_lect e2_0_lect = creation_etat_lect(2,0, &e2_0);
+	etat_suite e1_2 = creation_etat_suite(2,2,1);
+	etat_lect e1_2_lect = creation_etat_lect(1,2, &e1_2);
+	
+	etat_suite e2_0 = creation_etat_suite(2,1,1);
+	etat_lect e2_0_lect = creation_etat_lect(2,0, &e2_0);
 
-    etat_suite e2_1 = creation_etat_suite(2,0,1);
-    etat_lect e2_1_lect = creation_etat_lect(2,1, &e2_1);
+	etat_suite e2_1 = creation_etat_suite(2,0,1);
+	etat_lect e2_1_lect = creation_etat_lect(2,1, &e2_1);
 
-    etat_suite e2_2 =  creation_etat_suite(3,2,-1);
-    etat_lect e2_2_lect = creation_etat_lect(2,2, &e2_2);
+	etat_suite e2_2 =  creation_etat_suite(3,2,-1);
+	etat_lect e2_2_lect = creation_etat_lect(2,2, &e2_2);
 
-    int position = 0;
-    position = action_etat(1, e1_2_lect, e1_2_lect, e1_2_lect, vec, position);
-    
-    position = action_etat(2, e2_0_lect,e2_1_lect, e2_2_lect, vec, position);
-    
+	int position = 0;
+	position = action_etat(1, e1_2_lect, e1_2_lect, e1_2_lect, vec, position);
+	
+	position = action_etat(2, e2_0_lect,e2_1_lect, e2_2_lect, vec, position);
+	
 }
 
 
@@ -177,39 +236,20 @@ struct etat_suite{
     // 1 = droite , -1 = gauche
 //etat_lect creation_etat_lect(int etat, int lu, etat_suite * nxt){
 
-    int vec[6];
-    remplirvec(vec,1);
-    aff(vec,6);
-    execution(vec);
-    printf("Voici le vecteur avec plus 1 : \n");
-    aff(vec, 6);
-    int vec2[8];
-    remplirvec(vec2, 1);
-    aff(vec2,8);
-    execution(vec2);
-    printf("Voici le vecteur avec plus 1 : \n");
-    aff(vec2, 8);
-    printf("Voici le vecteur inverser: \n");
-    inverse(vec2);
-    aff(vec2,8);
-}
-
-        etat_actuel = (zero.nxt) -> nouvel_etat; // l'état actuel vaut sont nouvel état (de nxt)
-        vec[position] = (zero.nxt) -> ecrit; // vecteur à la position "position" prend la valeur de écrit de nxt
-        position += (zero.nxt) -> deplacement;
-        break;
-    case 1:
-        etat_actuel = (un.nxt) -> nouvel_etat;
-        vec[position] = (un.nxt) -> ecrit;
-        position += (un.nxt) -> deplacement;
-        break;
-    case 2:
-        etat_actuel = (deux.nxt) -> nouvel_etat;
-        vec[position] = (deux.nxt) -> ecrit;
-        position += (deux.nxt) -> deplacement;
-        break;
-    }
-    }
-    return position;
+	int vec[6];
+	remplirvec(vec,1);
+	aff(vec,6);
+	execution(vec);
+	printf("Voici le vecteur avec plus 1 : \n");
+	aff(vec, 6);
+	int vec2[8];
+	remplirvec(vec2, 1);
+	aff(vec2,8);
+	execution(vec2);
+	printf("Voici le vecteur avec plus 1 : \n");
+	aff(vec2, 8);
+	printf("Voici le vecteur inverser: \n");
+	inverse(vec2);
+	aff(vec2,8);
 }
 
