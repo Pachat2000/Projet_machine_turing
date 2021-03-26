@@ -38,13 +38,41 @@ void aff(int *vec, int size){
 	}
 	printf("\n");
 }
-void remplirvec(int * vec){
+
+void remplirvec(int * vec, int nb){
+    switch(nb){
+    case 0:
 	vec[0]= 2;
 	vec[1]= 1;
 	vec[2]= 1;
 	vec[3]= 1;
 	vec[4]= 1;
 	vec[5] = 2;
+	break;
+    case 1:
+	vec[0]= 2;
+	vec[1]= 1;
+	vec[2]= 0;
+	vec[3]= 1;
+	vec[4]= 0;
+	vec[5] = 1;
+	vec[6] = 1;
+	vec[7] = 2;
+	break;
+    case 2:
+	vec[0]= 2;
+	vec[1]= 1;
+	vec[2]= 0;
+	vec[3]= 1;
+	vec[4]= 2;
+	break;
+    default:
+	vec[0]= 2;
+	vec[1]= 1;
+	vec[2]= 2;
+	break;
+	
+    }
 }
 
 
@@ -95,6 +123,10 @@ int action_etat(int etat, etat_lect zero, etat_lect un, etat_lect deux, int *vec
     }
     return position;
 }
+
+
+
+
 void execution(int *vec){
 //_________________________________________________________________
 //etat_suite creation_etat_suite(int nouvel_etat, int ecrit, int deplacement){
@@ -133,6 +165,27 @@ void execution(int *vec){
 	action_etat(3, e3_0_lect,e3_1_lect, e3_2_lect, vec, position);
 }
 
+void inverse(int * vec){
+	etat_suite e1_2 = creation_etat_suite(2,2,1);
+	etat_lect e1_2_lect = creation_etat_lect(1,2, &e1_2);
+	
+	etat_suite e2_0 = creation_etat_suite(2,1,1);
+	etat_lect e2_0_lect = creation_etat_lect(2,0, &e2_0);
+
+	etat_suite e2_1 = creation_etat_suite(2,0,1);
+	etat_lect e2_1_lect = creation_etat_lect(2,1, &e2_1);
+
+	etat_suite e2_2 =  creation_etat_suite(3,2,-1);
+	etat_lect e2_2_lect = creation_etat_lect(2,2, &e2_2);
+
+	int position = 0;
+	position = action_etat(1, e1_2_lect, e1_2_lect, e1_2_lect, vec, position);
+	
+	position = action_etat(2, e2_0_lect,e2_1_lect, e2_2_lect, vec, position);
+	
+}
+
+
 int main() {
 /*struct etat_lect {
 	int etat; 
@@ -149,11 +202,19 @@ struct etat_suite{
 //etat_lect creation_etat_lect(int etat, int lu, etat_suite * nxt){
 
 	int vec[6];
-	remplirvec(vec);
+	remplirvec(vec,1);
 	aff(vec,6);
 	execution(vec);
-	printf("Voici le vecteur : \n");
-	
+	printf("Voici le vecteur avec plus 1 : \n");
 	aff(vec, 6);
+	int vec2[8];
+	remplirvec(vec2, 1);
+	aff(vec2,8);
+	execution(vec2);
+	printf("Voici le vecteur avec plus 1 : \n");
+	aff(vec2, 8);
+	printf("Voici le vecteur inverser: \n");
+	inverse(vec2);
+	aff(vec2,8);
 }
 
