@@ -21,7 +21,7 @@ Chaque état possède 3 etat_lect, pour les différents élément qu'il est poss
 
 La fonction "creation_etat_lect" permet de créer un struct etat_lect, ça renvoie un "etat_lect", "creation_etat_suit" permet de créer un struct etat_suite
 
-La fonction "aff" permet d'affiche le vecteur qui sera utiliser pou nos futur transaction avec notre programme.
+La fonction "affiche" permet d'affiche le vecteur qui sera utiliser pou nos futur transaction avec notre programme.
 
 La fonction "remplirvec" permet juste de remplir un vecteur a une certaine taille fixe.
 
@@ -39,4 +39,31 @@ La fonction "execute" permet d'exécuter le tableau de transaction de notre mach
 	-creer une fonction qui calcule la taille d'un vecteur (ez ca);
 -Pouvoir faire la meme chose mais avec une liste chaine;
 
-***** MAIS SURTOUT ATTENDRE LA VALIDATION DE LA LA MACHINE DE TURING ACTUELLE PAR LES PROFS *****
+***** MAIS SURTOUT ATTENDRE LA VALIDATION DE LA MACHINE DE TURING ACTUELLE PAR LES PROFS *****
+
+//--------------Explication globale du code-----------------\\
+Tout d'abord, il faut savoir que la bande peut ne contenir que 3 valeurs différentes :
+- 0 et 1, correspondant aux valeurs binaire
+- 2, correspondant à une case vide
+
+La machine de turing que nous simulons permet d'ajouter 1 au nombre binaire écrit dans la bande.
+
+La machine possède 3 états:
+______________________________________________________________
+|état actuel|élément lu|élément écrit|déplacement|état suivant|
+|=============================================================|
+|  état 1   |     2    |      2      |   droite  |   état 2   |
+|=============================================================|
+|  état 2   |     0    |      0      |   droite  |   état 2   |
+|-------------------------------------------------------------|
+|  état 2   |     1    |      1      |   droite  |   état 2   |
+|-------------------------------------------------------------|
+|  état 2   |     2    |      2      |   gauche  |   état 3   |
+|=============================================================|
+|  état 3   |     0    |      1      |   gauche  | état final |
+|-------------------------------------------------------------|
+|  état 3   |     1    |      0      |   gauche  |   état 3   |
+|-------------------------------------------------------------|
+|  état 3   |     2    |      1      |   gauche  | état final |
+|=============================================================|
+
