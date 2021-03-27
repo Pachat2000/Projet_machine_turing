@@ -1,35 +1,35 @@
 #include <stdio.h>
 
 
-struct etat_lect {
-	int etat; 
+struct etat_lect{
+	int etat_actuel; 
 	int lu;
-	struct etat_suite * nxt; 
-};
-struct etat_suite{
 	int etat_suivant;
 	int ecrit;
 	int deplacement;
 };
 typedef struct etat_lect etat_lect;
-typedef struct etat_suite etat_suite;
 
 
-etat_lect creation_etat_lect(int etat, int lu, etat_suite * nxt){
+etat_lect creation_etat_lect(int etat_actuel, int lu, int etat_suivant, int ecrit, int deplacement ){
 	etat_lect x;
-	x.etat = etat;
+
+	x.etat_actuel = etat_actuel;
 	x.lu= lu;
-	x.nxt = nxt;
+	x.etat_suivant = etat_suivant;
+	x.ecrit = ecrit;
+	x.deplacement = deplacement;
+
 	return x;
 }
 
-etat_suite creation_etat_suite(int etat_suivant, int ecrit, int deplacement){
+/*etat_suite creation_etat_suite(int etat_suivant, int ecrit, int deplacement){
 	etat_suite x;
 	x.etat_suivant = etat_suivant;
 	x.ecrit = ecrit;
 	x.deplacement = deplacement;
 	return x;
-}
+}*/
 
 void aff(int *vec, int size){
 	int i;
@@ -81,54 +81,44 @@ int action_etat(int etat, etat_lect zero, etat_lect un, etat_lect deux, int *vec
 	int etat_actuel = etat;
 	while(etat_actuel == etat){
 		if(vec[position] == zero.lu){
-			etat_actuel = (zero.nxt) -> etat_suivant; // l'état actuel vaut sont nouvel état (de nxt)
-			vec[position] = (zero.nxt) -> ecrit; // vecteur à la position "position" prend la valeur de écrit de nxt
-			position += (zero.nxt) -> deplacement;
+			etat_actuel = zero.etat_suivant; // l'état actuel vaut sont nouvel état (de nxt)
+			vec[position] = zero.ecrit; // vecteur à la position "position" prend la valeur de écrit de nxt
+			position += zero.deplacement;
 		}
 		if(vec[position] == un.lu && etat_actuel == etat){ // le and pour vérifier si etat_actuel n'a pas déjà changer
-			etat_actuel = (un.nxt) -> etat_suivant;
-			vec[position] = (un.nxt) -> ecrit;
-			position += (un.nxt) -> deplacement;
+			etat_actuel = un.etat_suivant;
+			vec[position] = un.ecrit;
+			position += un.deplacement;
 		}
 		if(vec[position] == deux.lu && etat_actuel == etat){
-			etat_actuel = (deux.nxt) -> etat_suivant;
-			vec[position] = (deux.nxt) -> ecrit;
-			position += (deux.nxt) -> deplacement;
+			etat_actuel = deux.etat_suivant;
+			vec[position] = deux.ecrit;
+			position += deux.deplacement;
 		}	
 	}
 	return position;
 }
 
-
 void execution(int *vec){
 //_________________________________________________________________
 //etat_suite creation_etat_suite(int etat_suivant, int ecrit, int deplacement){
 
-
-	etat_suite e1_2 = creation_etat_suite(2,2,1);
-	etat_lect e1_2_lect = creation_etat_lect(1,2, &e1_2);
-
+	etat_lect e1_2_lect = creation_etat_lect(1,2,2,2,1);
 //_________________________________________________________________
 
-	etat_suite e2_0 = creation_etat_suite(2,0,1);
-	etat_lect e2_0_lect = creation_etat_lect(2,0, &e2_0);
+	etat_lect e2_0_lect = creation_etat_lect(2,0,2,0,1);
 
-	etat_suite e2_1 = creation_etat_suite(2,1,1);
-	etat_lect e2_1_lect = creation_etat_lect(2,1, &e2_1);
+	etat_lect e2_1_lect = creation_etat_lect(2,1, 2,1,1);
 
-	etat_suite e2_2 =  creation_etat_suite(3,2,-1);
-	etat_lect e2_2_lect = creation_etat_lect(2,2, &e2_2);
+	etat_lect e2_2_lect = creation_etat_lect(2,2, 3,2,-1);
 
 //_________________________________________________________________
 //int action_etat(int etat, etat_lect zero, etat_lect un, etat_lect deux, int *vec, int position){ /
-	etat_suite e3_0 = creation_etat_suite(4,1,-1);
-	etat_lect e3_0_lect = creation_etat_lect(3,0, &e3_0);
+	etat_lect e3_0_lect = creation_etat_lect(3,0, 4,1,-1);
 
-	etat_suite e3_1 = creation_etat_suite(3,0,-1);
-	etat_lect e3_1_lect = creation_etat_lect(3,1, &e3_1);
+	etat_lect e3_1_lect = creation_etat_lect(3,1, 3,0,-1);
 
-	etat_suite e3_2 = creation_etat_suite(4,1,-1);
-	etat_lect e3_2_lect = creation_etat_lect(3,2, &e3_2);
+	etat_lect e3_2_lect = creation_etat_lect(3,2,4,1,-1);
 
 //_________________________________________________________________
 	int position = 0;
@@ -137,10 +127,7 @@ void execution(int *vec){
 	position = action_etat(2, e2_0_lect,e2_1_lect, e2_2_lect, vec, position);
 	action_etat(3, e3_0_lect,e3_1_lect, e3_2_lect, vec, position);
 }
-
-void inverse(int * vec){
-	etat_suite e1_2 = creation_etat_suite(2,2,1);
-	etat_lect e1_2_lect = creation_etat_lect(1,2, &e1_2);
+/*void inverse(int * vec){ 
 	
 	etat_suite e2_0 = creation_etat_suite(2,1,1);
 	etat_lect e2_0_lect = creation_etat_lect(2,0, &e2_0);
@@ -157,7 +144,7 @@ void inverse(int * vec){
 	position = action_etat(2, e2_0_lect,e2_1_lect, e2_2_lect, vec, position);
 	
 }
-
+*/
 int main() {
 /*struct etat_lect {
 	int etat; 
@@ -185,9 +172,9 @@ struct etat_suite{
 	execution(vec2);
 	printf("Voici le vecteur avec plus 1 : \n");
 	aff(vec2, 8);
-	printf("Voici le vecteur inverser: \n");
+	/*printf("Voici le vecteur inverser: \n");
 	inverse(vec2);
-	aff(vec2,8);
+	aff(vec2,8);*/
 }
 
 
