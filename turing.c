@@ -93,11 +93,10 @@ int action_etat(int etat, etat_lect *tab, int *vec, int position){ //pour un eta
 etat_lect execution(int *vec){
 //_________________________________________________________________
 //etat_suite creation_etat_suite(int etat_suivant, int ecrit, int deplacement){
-<<<<<<< HEAD
-    etat_lect table[2];
-    etat_lect e0[0];
-    etat_lect e1[2];
-    etat_lect e2[2];
+	etat_lect table[2];
+	etat_lect e0[0];
+	etat_lect e1[2];
+	etat_lect e2[2];
     
 	etat_lect e1_2_lect = creation_etat_lect(1,2,2,2,1);
 	e0[0] = e1_2_lect;
