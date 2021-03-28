@@ -3,7 +3,6 @@
 
 struct etat_lect{
 	int etat_actuel; 
-	int lu;
 	int etat_suivant;
 	int ecrit;
 	int deplacement;
@@ -11,11 +10,10 @@ struct etat_lect{
 typedef struct etat_lect etat_lect;
 
 
-etat_lect creation_etat_lect(int etat_actuel, int lu, int etat_suivant, int ecrit, int deplacement ){
+etat_lect creation_etat_lect(int etat_actuel, int etat_suivant, int ecrit, int deplacement ){
 	etat_lect x;
 
 	x.etat_actuel = etat_actuel;
-	x.lu= lu;
 	x.etat_suivant = etat_suivant;
 	x.ecrit = ecrit;
 	x.deplacement = deplacement;
@@ -80,17 +78,17 @@ int action_etat(int etat, etat_lect zero, etat_lect un, etat_lect deux, int *vec
 //on reste dans la boucle tant que l'on reste dans le même état 
 	int etat_actuel = etat;
 	while(etat_actuel == etat){
-		if(vec[position] == zero.lu){
+		if(vec[position] == 0){
 			etat_actuel = zero.etat_suivant; // l'état actuel vaut sont nouvel état (de nxt)
 			vec[position] = zero.ecrit; // vecteur à la position "position" prend la valeur de écrit de nxt
 			position += zero.deplacement;
 		}
-		if(vec[position] == un.lu && etat_actuel == etat){ // le and pour vérifier si etat_actuel n'a pas déjà changer
+		if(vec[position] == 1  && etat_actuel == etat){ // le and pour vérifier si etat_actuel n'a pas déjà changer
 			etat_actuel = un.etat_suivant;
 			vec[position] = un.ecrit;
 			position += un.deplacement;
 		}
-		if(vec[position] == deux.lu && etat_actuel == etat){
+		if(vec[position] == 2 && etat_actuel == etat){
 			etat_actuel = deux.etat_suivant;
 			vec[position] = deux.ecrit;
 			position += deux.deplacement;
