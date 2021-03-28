@@ -1,18 +1,18 @@
 #include <stdio.h>
 
 
-struct etat_lect{
+struct transition_etat{
 	int etat_actuel; 
 	int lu;
 	int etat_suivant;
 	int ecrit;
 	int deplacement;
 };
-typedef struct etat_lect etat_lect;
+typedef struct transition_etat transition_etat;
 
 
-etat_lect creation_etat_lect(int etat_actuel, int lu, int etat_suivant, int ecrit, int deplacement ){
-	etat_lect x;
+transition_etat creation_transition_etat(int etat_actuel, int lu, int etat_suivant, int ecrit, int deplacement ){
+	transition_etat x;
 
 	x.etat_actuel = etat_actuel;
 	x.lu= lu;
@@ -76,7 +76,7 @@ void remplirvec(int * vec, int nb){
 }
 
 
-int action_etat(int etat, etat_lect zero, etat_lect un, etat_lect deux, int *vec, int position){ //pour un etat donné, on exécute tant qu'on reste dedans
+int action_etat(int etat, transition_etat zero, transition_etat un, transition_etat deux, int *vec, int position){ //pour un etat donné, on exécute tant qu'on reste dedans
 //on reste dans la boucle tant que l'on reste dans le même état 
 	int etat_actuel = etat;
 	while(etat_actuel == etat){
@@ -103,22 +103,22 @@ void execution(int *vec){
 //_________________________________________________________________
 //etat_suite creation_etat_suite(int etat_suivant, int ecrit, int deplacement){
 
-	etat_lect e1_2_lect = creation_etat_lect(1,2,2,2,1);
+	transition_etat e1_2_lect = creation_transition_etat(1,2,2,2,1);
 //_________________________________________________________________
 
-	etat_lect e2_0_lect = creation_etat_lect(2,0,2,0,1);
+	transition_etat e2_0_lect = creation_transition_etat(2,0,2,0,1);
 
-	etat_lect e2_1_lect = creation_etat_lect(2,1, 2,1,1);
+	transition_etat e2_1_lect = creation_transition_etat(2,1, 2,1,1);
 
-	etat_lect e2_2_lect = creation_etat_lect(2,2, 3,2,-1);
+	transition_etat e2_2_lect = creation_transition_etat(2,2, 3,2,-1);
 
 //_________________________________________________________________
-//int action_etat(int etat, etat_lect zero, etat_lect un, etat_lect deux, int *vec, int position){ /
-	etat_lect e3_0_lect = creation_etat_lect(3,0, 4,1,-1);
+//int action_etat(int etat, transition_etat zero, transition_etat un, transition_etat deux, int *vec, int position){ /
+	transition_etat e3_0_lect = creation_transition_etat(3,0, 4,1,-1);
 
-	etat_lect e3_1_lect = creation_etat_lect(3,1, 3,0,-1);
+	transition_etat e3_1_lect = creation_transition_etat(3,1, 3,0,-1);
 
-	etat_lect e3_2_lect = creation_etat_lect(3,2,4,1,-1);
+	transition_etat e3_2_lect = creation_transition_etat(3,2,4,1,-1);
 
 //_________________________________________________________________
 	int position = 0;
@@ -130,13 +130,13 @@ void execution(int *vec){
 /*void inverse(int * vec){ 
 	
 	etat_suite e2_0 = creation_etat_suite(2,1,1);
-	etat_lect e2_0_lect = creation_etat_lect(2,0, &e2_0);
+	transition_etat e2_0_lect = creation_transition_etat(2,0, &e2_0);
 
 	etat_suite e2_1 = creation_etat_suite(2,0,1);
-	etat_lect e2_1_lect = creation_etat_lect(2,1, &e2_1);
+	transition_etat e2_1_lect = creation_transition_etat(2,1, &e2_1);
 
 	etat_suite e2_2 =  creation_etat_suite(3,2,-1);
-	etat_lect e2_2_lect = creation_etat_lect(2,2, &e2_2);
+	transition_etat e2_2_lect = creation_transition_etat(2,2, &e2_2);
 
 	int position = 0;
 	position = action_etat(1, e1_2_lect, e1_2_lect, e1_2_lect, vec, position);
@@ -146,7 +146,7 @@ void execution(int *vec){
 }
 */
 int main() {
-/*struct etat_lect {
+/*struct transition_etat {
 	int etat; 
 	int lu;
 	struct etat_suite * nxt; 
@@ -158,7 +158,7 @@ struct etat_suite{
 };*/
 
 	// 1 = droite , -1 = gauche
-//etat_lect creation_etat_lect(int etat, int lu, etat_suite * nxt){
+//transition_etat creation_transition_etat(int etat, int lu, etat_suite * nxt){
 
 	int vec[6];
 	remplirvec(vec,1);
