@@ -66,29 +66,21 @@ void remplirvec(int * vec, int nb){
     }
 }
 
+void action_etat(int *vec, int position, transition_etat * tab, int etat_actuel){
+  if ((etat_actuel == -1) || (vec == NULL) || (tab == NULL) ){
+  } else {
+     for(int i = 0; i < 2; i ++){
+       if (vec[position] == tab[etat_actuel][i].lu){
 
-int action_etat(int etat, etat_lect *tab, int *vec, int position){ //pour un etat donné, on exécute tant qu'on reste dedans
-//on reste dans la boucle tant que l'on reste dans le même état 
-	int etat_actuel = etat;
-	while(etat_actuel == etat){
-		if(vec[position] == 0 && tab->lu ==0 ){
-			etat_actuel = zero.etat_suivant; // l'état actuel vaut sont nouvel état (de nxt)
-			vec[position] = zero.ecrit; // vecteur à la position "position" prend la valeur de écrit de nxt
-			position += zero.deplacement;
-		}
-		if(vec[position] == 1  && etat_actuel == etat){ // le and pour vérifier si etat_actuel n'a pas déjà changer
-			etat_actuel = un.etat_suivant;
-			vec[position] = un.ecrit;
-			position += un.deplacement;
-		}
-		if(vec[position] == 2 && etat_actuel == etat){
-			etat_actuel = deux.etat_suivant;
-			vec[position] = deux.ecrit;
-			position += deux.deplacement;
-		}	
-	}
-	return position;
+         etat_actuel = tab[etat_actuel][i].etat_suivant;
+         vec[position] = tab[etat_actuel][i].ecrit;
+         position += tab[etat_actuel][i].deplacement;
+
+         action_etat(vec, position, tab, etat_actuel);
+     }
+   }   
 }
+
 
 etat_lect execution(int *vec){
 //_________________________________________________________________
@@ -126,9 +118,9 @@ etat_lect execution(int *vec){
 	table[1] = e1;
 	table[2] = e2;
 
-	return table;
+	action_etat(vec, 0, table, 0);
 }
-void inverse(int * vec){ 
+/*void inverse(int * vec){ 
 	
 	etat_suite e2_0 = creation_etat_suite(2,1,1);
 	transition_etat e2_0_lect = creation_transition_etat(2,0, &e2_0);
@@ -145,7 +137,7 @@ void inverse(int * vec){
 	position = action_etat(2, e2_0_lect,e2_1_lect, e2_2_lect, vec, position);
 	
 }
-
+*/
 int main() {
  // 1 = droite , -1 = gauche
 //etat_lect creation_etat_lect(int etat, etat_suite * nxt){
