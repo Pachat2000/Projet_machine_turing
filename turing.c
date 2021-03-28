@@ -80,38 +80,38 @@ void action_etat(int *vec, int position, transition_etat * tab, int etat_actuel)
      }
    }   
 }
+}
 
-
-etat_lect execution(int *vec){
+transition_etat execution(int *vec){
 //_________________________________________________________________
 //etat_suite creation_etat_suite(int etat_suivant, int ecrit, int deplacement){
-	etat_lect table[2];
-	etat_lect e0[0];
-	etat_lect e1[2];
-	etat_lect e2[2];
+	transition_etat table[2];
+	transition_etat e0[0];
+	transition_etat e1[2];
+	transition_etat e2[2];
     
-	etat_lect e1_2_lect = creation_etat_lect(1,2,2,2,1);
+	transition_etat e1_2_lect = creation_transition_etat(1,2,2,2,1);
 	e0[0] = e1_2_lect;
 //_________________________________________________________________
 
-	etat_lect e2_0_lect = creation_etat_lect(2,0,2,0,1);
+	transition_etat e2_0_lect = creation_transition_etat(2,0,2,0,1);
 	e1[0] = e2_0_lect;
 
-	etat_lect e2_1_lect = creation_etat_lect(2,1, 2,1,1);
+	transition_etat e2_1_lect = creation_transition_etat(2,1, 2,1,1);
 	e1[1] = e2_1_lect;
 
-	etat_lect e2_2_lect = creation_etat_lect(2,2, 3,2,-1);
+	transition_etat e2_2_lect = creation_transition_etat(2,2, 3,2,-1);
 	e1[2] = e2_2_lect;
 
 //_________________________________________________________________
-//int action_etat(int etat, etat_lect zero, etat_lect un, etat_lect deux, int *vec, int position){ /
-	etat_lect e3_0_lect = creation_etat_lect(3,0, 4,1,-1);
+//int action_etat(int etat, transition_etat zero, transition_etat un, transition_etat deux, int *vec, int position){ /
+	transition_etat e3_0_lect = creation_transition_etat(3,0, 4,1,-1);
 	e2[0] = e3_0_lect;
 
-	etat_lect e3_1_lect = creation_etat_lect(3,1, 3,0,-1);
+	transition_etat e3_1_lect = creation_transition_etat(3,1, 3,0,-1);
 	e2[1] = e3_0_lect;
 
-	etat_lect e3_2_lect = creation_etat_lect(3,2,4,1,-1);
+	transition_etat e3_2_lect = creation_transition_etat(3,2,4,1,-1);
 	e2[3] = e3_0_lect;
 
 	table[0] = e0;
@@ -140,7 +140,7 @@ etat_lect execution(int *vec){
 */
 int main() {
  // 1 = droite , -1 = gauche
-//etat_lect creation_etat_lect(int etat, etat_suite * nxt){
+//transition_etat creation_transition_etat(int etat, etat_suite * nxt){
 	int vec[6];
 	remplirvec(vec,1);
 	aff(vec,6);
