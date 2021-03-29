@@ -1,6 +1,7 @@
 #include <stdio.h>
 
 
+
 struct transition_etat{
 	int etat_actuel;
         int lu;
@@ -68,23 +69,21 @@ void remplirvec(int * vec, int nb){
 }
 
 void action_etat(int *vec, int position, transition_etat ** tab, int etat_actuel){
-    if ((etat_actuel == -1) || (vec == NULL) || (tab == NULL) ){
+    int fin = -1;
+    int i = 0;
+    if( (vec == NULL) || (tab == NULL)){
 	return;
     }
-    else {
-	for(int i = 0; i < 3 ; i ++){
-	    if (vec[position] == tab[etat_actuel][i].lu){
-
-		printf("%d",  tab[etat_actuel][i].lu);
-		printf("%d",  tab[etat_actuel][i].ecrit);
-		printf("%d\n",  tab[etat_actuel][i].etat_actuel);
-		etat_actuel = tab[etat_actuel][i].etat_suivant;
-		vec[position] = tab[etat_actuel][i].ecrit;
-		position += tab[etat_actuel][i].deplacement;
-
-		action_etat(vec, position, tab, etat_actuel);
-	    }
-	}   
+    while(etat_actuel != fin){
+	if(i == 3){
+	    i = 0;
+	}
+	if (vec[position] == tab[etat_actuel][i].lu){
+	    vec[position] = tab[etat_actuel][i].ecrit;
+	    position += tab[etat_actuel][i].deplacement;
+	    etat_actuel = tab[etat_actuel][i].etat_suivant;
+	}
+	i++;
     }
 }
 
@@ -169,5 +168,6 @@ int main() {
 	inverse(vec2);
 	aff(vec2,8);*/
 }
+
 
 
