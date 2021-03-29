@@ -49,24 +49,18 @@ Tout d'abord, il faut savoir que la bande peut ne contenir que 3 valeurs différ
 La machine de turing que nous simulons permet d'ajouter 1 au nombre binaire écrit dans la bande.
 
 La machine possède 3 états:
-```
-______________________________________________________________
-|état actuel|élément lu|élément écrit|déplacement|état suivant|
-|=============================================================|
+
+|état actuel|élément lu|élément  écrit|déplacement|état suivant|
+|===|
 |  état 1   |     2    |      2      |   droite  |   état 2   |
-|=============================================================|
+|===|
 |  état 2   |     0    |      0      |   droite  |   état 2   |
-|-------------------------------------------------------------|
 |  état 2   |     1    |      1      |   droite  |   état 2   |
-|-------------------------------------------------------------|
 |  état 2   |     2    |      2      |   gauche  |   état 3   |
-|=============================================================|
+|===|
 |  état 3   |     0    |      1      |   gauche  | état final |
-|-------------------------------------------------------------|
 |  état 3   |     1    |      0      |   gauche  |   état 3   |
-|-------------------------------------------------------------|
 |  état 3   |     2    |      1      |   gauche  | état final |
-|=============================================================|
-```
+
 Le ruban est créer a partir d'un vecteur déjà prédeterminer, que l'on peut choisir selon le nombre que tu a mis entre 0, 1 et 2.
 le sens de lecture ce fait de gauche à droite de la bande.
