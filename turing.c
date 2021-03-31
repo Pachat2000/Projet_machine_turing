@@ -179,7 +179,7 @@ int main() {
 //transition_etat creation_transition_etat(int etat, etat_suite * nxt){
 	liste l;
 	l = creation(2, l);
-	remplir_liste(l, 2);
+	remplir_liste(l, 1);
 	afficher(l);
 	add1(l);
 	printf("Voici le liste al plus 1 : \n");
