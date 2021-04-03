@@ -7,9 +7,9 @@ liste deplacement(liste l, int mouvement){
 			append(2, l);
 		}
 		return l -> next;	
-	} else 
+	} else { 
 		if(l->previous == NULL) {
-			append_vide_gauche(2, l);
+			append_vide_gauche(l);
 		}
 
 		return l -> previous;
