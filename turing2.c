@@ -3,6 +3,9 @@
 #include "struct2.h"
 liste deplacement(liste l, int mouvement){
 	if(mouvement ==  1){
+		if(l->next == NULL) {
+			append(2, l);
+		}
 		return l -> next;	
 	} else {
 		return l -> previous;
@@ -63,7 +66,7 @@ void add1(liste l){
 	transition_etat e3_1_lect = creation_transition_etat(2,1, 2,0,-1);
 	e2[1] = e3_1_lect;
 
-	transition_etat e3_2_lect = creation_transition_etat(2,2,-1,1,-1);
+	transition_etat e3_2_lect = creation_transition_etat(2,2,-1,1,1);
 	e2[2] = e3_2_lect;
 
 	table[0] = e0;
@@ -118,7 +121,7 @@ void multiplieBy2 (liste l){
 	transition_etat e2_1_lect = creation_transition_etat(1,1, 1,1,1);
 	e1[1] = e2_1_lect;
 
-	transition_etat e2_2_lect = creation_transition_etat(1,2, -1, 0,-1);
+	transition_etat e2_2_lect = creation_transition_etat(1,2, -1, 0,1);
 	e1[2] = e2_2_lect;
 
 	table[0] = e0;
@@ -199,6 +202,7 @@ int main() {
 	multiplieBy2 (l);
 	printf("voici le nouveau liste multiplier par 2 : \n");
 	afficher(l);
+	multiplieBy2 (l);
 	printf("voici le nouveau liste multiplier par 2 : \n");
 	afficher(l);
 
