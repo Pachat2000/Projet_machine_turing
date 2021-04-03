@@ -37,6 +37,12 @@ void append(int nb, liste l){
 	l -> next = nouveau;
 }
 
+void append_vide_gauche(liste l){
+	liste nouveau = creation(2, NULL);
+	nouveau -> next = l;
+	l -> previous = nouveau;
+}
+
 void afficher (liste l ) {
 	if (estnonvide(l)){
 		printf("%d\n", l -> nb);
