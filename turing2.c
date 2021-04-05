@@ -1,20 +1,21 @@
 #include <stdio.h>
 #include "liste2.h"
 #include "struct2.h"
-liste deplacement(liste l, int mouvement){
-	if(mouvement ==  1){
-		if(l->next == NULL) {
-			append(2, l);
-		}
-		return l -> next;	
-	} else { 
-		if(l->previous == NULL) {
-			append_vide_gauche(l);
-		}
 
-		return l -> previous;
-	}
+
+
+transition_etat creation_transition_etat(int etat_actuel, int lu, int etat_suivant, int ecrit, int deplacement ){
+	transition_etat x;
+	x.etat_actuel = etat_actuel;
+	x.lu = lu;
+	x.etat_suivant = etat_suivant;
+	x.ecrit = ecrit;
+	x.deplacement = deplacement;
+
+	return x;
 }
+
+
 void action_etat(liste l, int position, transition_etat ** tab, int etat_actuel){
 	int fin = -1;
 	int i = 0;
@@ -35,7 +36,7 @@ void action_etat(liste l, int position, transition_etat ** tab, int etat_actuel)
 	}
 }
 
-void add1(liste l){
+void add1(liste l){ // permet d'ajouter 1 à la bande
 //_________________________________________________________________
 //etat_suite creation_etat_suite(int etat_suivant, int ecrit, int deplacement){
 	transition_etat * table[3];
@@ -80,13 +81,13 @@ void add1(liste l){
 	action_etat(l, 0, table, 0);
 }
 
-void addition(liste l, int nb){
+void addition(liste l, int nb){ // permet d'ajouter nb à la bande 
 	for(int i = 0; i < nb; i++){
 	add1(l);
 	}
 }
 
-void inverse(liste l){
+void inverse(liste l){ // permet d'inverser les valeurs de la bande
 	
 	transition_etat * table[2];
 	transition_etat e0[1];
@@ -110,7 +111,7 @@ void inverse(liste l){
 	action_etat(l, 0, table, 0);
 }
 
-void multiplieBy2 (liste l){
+void multiplieBy2 (liste l){ //permet de multiplier la valeur de la bande par 2
 	   
 	transition_etat * table[2];
 	transition_etat e0[1];
@@ -134,7 +135,7 @@ void multiplieBy2 (liste l){
 	action_etat(l, 0, table, 0);
 }
 
-void soustract_1(liste l){
+void soustract_1(liste l){ // permet d'enlever 1 à la bande
 
 	transition_etat * table[3];
 	transition_etat e0[3];
@@ -175,7 +176,7 @@ void soustract_1(liste l){
 	action_etat(l, 0, table, 0);
 }
 
-void sous(liste l, int nb){
+void sous(liste l, int nb){ // permet d'enlever nb à la bande
 	for(int i = 0 ; i <nb ; i++){
 		soustract_1(l);
 	}
