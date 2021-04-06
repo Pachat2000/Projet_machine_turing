@@ -70,6 +70,10 @@ liste aller_gauche(liste l){
 	if (estnonvide(l -> previous)){
 		l = l -> previous;
 		return l;
+	} else {
+	   append_vide_gauche(l);
+	   l = l -> next;
+		return l;
 	}
 }
 
