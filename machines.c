@@ -1,4 +1,4 @@
-void action_etat(liste l, int position, transition_etat ** tab, int etat_actuel){
+void action_etat(liste l, transition_etat ** tab, int etat_actuel){
 	int fin = -1;
 	int i = 0;
 	/*if( (liste == NULL) || (tab == NULL)){
@@ -63,7 +63,7 @@ void add1(liste l){ // permet d'ajouter 1 à la bande
 	table[1] = e1;
 	table[2] = e2;
 
-	action_etat(l, 0, table, 0);
+	action_etat(l, table, 0);
 }
 
 void addition(liste l, int nb){ // permet d'ajouter nb à la bande 
@@ -93,7 +93,7 @@ void inverse(liste l){ // permet d'inverser les valeurs de la bande
 	table[0] = e0;
 	table[1] = e1;
 
-	action_etat(l, 0, table, 0);
+	action_etat(l, table, 0);
 }
 
 void multiplieBy2 (liste l){ //permet de multiplier la valeur de la bande par 2
@@ -117,7 +117,7 @@ void multiplieBy2 (liste l){ //permet de multiplier la valeur de la bande par 2
 	table[0] = e0;
 	table[1] = e1;
 
-	action_etat(l, 0, table, 0);
+	action_etat(l, table, 0);
 }
 
 void soustract_1(liste l){ // permet d'enlever 1 à la bande
@@ -158,7 +158,7 @@ void soustract_1(liste l){ // permet d'enlever 1 à la bande
 	table[1] = e1;
 	table[2] = e2;
 
-	action_etat(l, 0, table, 0);
+	action_etat(l, table, 0);
 }
 
 void sous(liste l, int nb){ // permet d'enlever nb à la bande
