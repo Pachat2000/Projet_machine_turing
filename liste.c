@@ -152,10 +152,8 @@ void remplir_liste(liste l, int nb){
 		append(2, l);	
 		l = aller_droite(l);	
 
-		for(int i = 0; i < 3; i++){
-			l = aller_gauche(l);	
-		}
-
+		l = aller_debut(l);
+		
 		break;
 		
 	}
