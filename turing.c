@@ -8,7 +8,7 @@ int
 main (void)
 {
   liste l = NULL;
-  printf("Voilà notre liste : ");
+  printf("Voilà notre liste : \n");
   l = creation (2, l);
   remplir_liste (l, 1);
   afficher (l);
