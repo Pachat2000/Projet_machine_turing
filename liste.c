@@ -29,9 +29,9 @@ creation (int nb, liste l)
 {
   liste new;
   new = (liste) malloc (sizeof (element_t));
-  (*new).nb = nb;
-  (*new).next = NULL;
-  (*new).previous = l;
+  new->nb = nb;
+  new->next = NULL;
+  new->previous = l;
   return new;
 }
 
