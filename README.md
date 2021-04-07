@@ -7,7 +7,7 @@
 ## Compiler 
 
 Voici la ligne à entrer dans le terminal :
-``` gcc turing.c -o turing.out```
+```gcc turing.c liste.c machines.c table_transition.c -o ./turing.out```
 
 ## La mise en place de la structure de notre machine de Turing:
 
