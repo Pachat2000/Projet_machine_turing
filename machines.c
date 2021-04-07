@@ -9,16 +9,16 @@ action_etat (liste l, transition_etat ** tab, int etat_actuel)
   while (etat_actuel != fin)
     {
       if (i == 3)
-	{
-	  i = 0;
-	}
+		{
+	  		i = 0;
+		}
       if (l->nb == tab[etat_actuel][i].lu)
-	{
-	  l->nb = tab[etat_actuel][i].ecrit;
-	  l = deplacement (l, tab[etat_actuel][i].deplacement);
+		{
+	  		l->nb = tab[etat_actuel][i].ecrit;
+	  		l = deplacement (l, tab[etat_actuel][i].deplacement);
 
-	  etat_actuel = tab[etat_actuel][i].etat_suivant;
-	}
+	  		etat_actuel = tab[etat_actuel][i].etat_suivant;
+		}
       i++;
     }
 }

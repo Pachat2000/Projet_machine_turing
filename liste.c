@@ -189,17 +189,17 @@ deplacement (liste l, int mouvement)
   if (mouvement == 1)
     {
       if (l->next == NULL)
-	{
-	  append (2, l);
-	}
+		{
+			append (2, l);
+		}
       return l->next;
     }
   else
     {
       if (l->previous == NULL)
-	{
-	  append_vide_gauche (l);
-	}
+		{
+	  		append_vide_gauche (l);
+		}
 
       return l->previous;
     }
