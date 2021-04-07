@@ -65,7 +65,7 @@ void
 inverse (liste l)
 {				// permet d'inverser les valeurs de la bande
 
-  transition_etat *table[2][3];
+  transition_etat table[2][3];
 
   table[0][ZERO] = creation_transition_etat (ETAT_INITIAL, ZERO, ONE, ZERO, ZERO);
   table[0][ONE] = creation_transition_etat (ETAT_INITIAL, ONE, ONE, ONE, ZERO);
@@ -83,7 +83,7 @@ void
 multiplieBy2 (liste l)
 {				//permet de multiplier la valeur de la bande par 2
 
-  transition_etat *table[2][3];
+  transition_etat table[2][3];
 
   table[0][ZERO] = creation_transition_etat (ETAT_INITIAL, ZERO, ONE, ZERO, ZERO);
   table[0][ONE] = creation_transition_etat (ETAT_INITIAL, ONE, ONE, ONE, ZERO);
@@ -100,7 +100,7 @@ void
 soustract_1 (liste l)
 {				// permet d'enlever 1 à la bande
 
-  transition_etat *table[3][3];
+  transition_etat table[3][3];
 
   table[0][ZERO] = creation_transition_etat (ETAT_INITIAL, ZERO, ONE, ZERO, ZERO);
   table[0][ONE] = creation_transition_etat (ETAT_INITIAL, ONE, ONE, ONE, ZERO);
@@ -113,10 +113,6 @@ soustract_1 (liste l)
   table[2][ZERO] =creation_transition_etat (2, ZERO, 2, ONE, GAUCHE);
   table[2][ONE] = creation_transition_etat (2, ONE, ETAT_FINAL, ZERO, GAUCHE);
   table[2][2] = creation_transition_etat (2, EMPTY, ETAT_FINAL, EMPTY, GAUCHE);
-
-  table[ZERO] = e0;
-  table[ONE] = e1;
-  table[2] = e2;
 
   action_etat (l, table, ETAT_INITIAL);
 }
