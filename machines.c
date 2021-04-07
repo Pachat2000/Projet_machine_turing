@@ -16,12 +16,13 @@ enum deplacement {
 void
 action_etat (liste l, transition_etat **tab, int etat_actuel)
 {
-  int fin = ETAT_FINAL;
-  while (etat_actuel != fin)
+    int svg;
+  while (etat_actuel != ETAT_FINAL)
     {
+	svg = l->nb;
 	l->nb = tab[etat_actuel][l->nb].ecrit;
-	l = deplacement (l, tab[etat_actuel][l->nb].deplacement);
-	etat_actuel = tab[etat_actuel][l->nb].etat_suivant;
+	l = deplacement (l, tab[etat_actuel][svg].deplacement);
+	etat_actuel = tab[etat_actuel][svg].etat_suivant;
 
     }
 }
@@ -39,25 +40,25 @@ add1 (liste l)
     transition_etat e2[3];
 
 
-  e0[0] = creation_transition_etat (ETAT_INITIAL, ZERO, ONE, ZERO, ZERO);
-  e0[ONE] = creation_transition_etat (ETAT_INITIAL, ONE, ONE, ONE, ZERO);
-  e0[EMPTY] = creation_transition_etat (ETAT_INITIAL, EMPTY, ONE, EMPTY, DROITE);
+  e0[ZERO] = creation_transition_etat ( 1, ZERO, ZERO);
+  e0[ONE] = creation_transition_etat ( 1, ONE, ZERO);
+  e0[EMPTY] = creation_transition_etat ( 1, EMPTY, DROITE);
 
   
-  e1[0] = creation_transition_etat (ONE, ZERO, ONE, ZERO, DROITE);
-  e1[1] = creation_transition_etat (ONE, ONE, ONE, ONE, DROITE);
-  e1[2] =  creation_transition_etat (ONE, EMPTY, 2, EMPTY, GAUCHE);
+  e1[ZERO] = creation_transition_etat ( 1, ZERO, DROITE);
+  e1[ONE] = creation_transition_etat ( 1, ONE, DROITE);
+  e1[EMPTY] =  creation_transition_etat ( 2, EMPTY, GAUCHE);
 
-  e2[0] = creation_transition_etat (2, ZERO, ETAT_FINAL, ONE, GAUCHE);
-  e2[1] =  creation_transition_etat (2, ONE, 2, ZERO, GAUCHE);
-  e2[2] = creation_transition_etat (2, EMPTY, ETAT_FINAL, ONE, DROITE);
+  e2[ZERO] = creation_transition_etat ( ETAT_FINAL, ONE, GAUCHE);
+  e2[ONE] =  creation_transition_etat ( 2, ZERO, GAUCHE);
+  e2[EMPTY] = creation_transition_etat ( ETAT_FINAL, ONE, DROITE);
 
   table[0] = e0;
   table[1] = e1;
   table[2] = e2;
   
 
-  action_etat (l, table, 0);
+  action_etat (l, table, ETAT_INITIAL);
 }
 
 void
@@ -77,13 +78,13 @@ inverse (liste l)
   transition_etat e0[3];
   transition_etat e1[3];
   
-  e0[ZERO] = creation_transition_etat (ETAT_INITIAL, ZERO, ONE, ZERO, ZERO);
-  e0[ONE] = creation_transition_etat (ETAT_INITIAL, ONE, ONE, ONE, ZERO);
-  e0[EMPTY] = creation_transition_etat (ETAT_INITIAL, EMPTY, ONE, EMPTY, DROITE);
+  e0[ZERO] = creation_transition_etat ( 1, ZERO, ZERO);
+  e0[ONE] = creation_transition_etat ( 1, ONE, ZERO);
+  e0[EMPTY] = creation_transition_etat ( 1, EMPTY, DROITE);
 
-  e1[ZERO] = creation_transition_etat (ONE, ZERO, ONE, ONE, DROITE);
-  e1[ONE] = creation_transition_etat (ONE, ONE, ONE, ZERO, DROITE);
-  e1[2] = creation_transition_etat (ONE, EMPTY, ETAT_FINAL, EMPTY, GAUCHE);
+  e1[ZERO] = creation_transition_etat ( 1, ONE, DROITE);
+  e1[ONE] = creation_transition_etat ( 1, ZERO, DROITE);
+  e1[EMPTY] = creation_transition_etat ( ETAT_FINAL, EMPTY, GAUCHE);
 
   table[0] = e0;
   table[1] = e1;
@@ -98,13 +99,13 @@ multiplieBy2 (liste l)
   transition_etat e0[3];
   transition_etat e1[3];
 
-  e0[ZERO] = creation_transition_etat (ETAT_INITIAL, ZERO, ONE, ZERO, ZERO);
-  e0[ONE] = creation_transition_etat (ETAT_INITIAL, ONE, ONE, ONE, ZERO);
-  e0[EMPTY] = creation_transition_etat (ETAT_INITIAL, EMPTY, ONE, EMPTY, DROITE);
+  e0[ZERO] = creation_transition_etat ( 1, ZERO, ZERO);
+  e0[ONE] = creation_transition_etat ( 1, ONE, ZERO);
+  e0[EMPTY] = creation_transition_etat ( 1, EMPTY, DROITE);
 
-  e1[ZERO] = creation_transition_etat (ONE, ZERO, ONE, ZERO, DROITE);
-  e1[ONE] = creation_transition_etat (ONE, ONE, ONE, ONE, DROITE);
-  e1[2] = creation_transition_etat (ONE, EMPTY, ETAT_FINAL, ZERO, DROITE);
+  e1[ZERO] = creation_transition_etat ( 1, ZERO, DROITE);
+  e1[ONE] = creation_transition_etat ( 1, ONE, DROITE);
+  e1[EMPTY] = creation_transition_etat ( ETAT_FINAL, ZERO, DROITE);
 
   table[0] = e0;
   table[1] = e1;
@@ -121,17 +122,17 @@ soustract_1 (liste l)
   transition_etat e1[3];
   transition_etat e2[3];
   
-  e0[ZERO] = creation_transition_etat (ETAT_INITIAL, ZERO, ONE, ZERO, ZERO);
-  e0[ONE] = creation_transition_etat (ETAT_INITIAL, ONE, ONE, ONE, ZERO);
-  e0[EMPTY] = creation_transition_etat (ETAT_INITIAL, EMPTY, ONE, EMPTY, DROITE);
+  e0[ZERO] = creation_transition_etat ( 1, ZERO, ZERO);
+  e0[ONE] = creation_transition_etat ( 1, ONE, ZERO);
+  e0[EMPTY] = creation_transition_etat ( 1, EMPTY, DROITE);
 
-  e1[ZERO] = creation_transition_etat (ONE, ZERO, ONE, ZERO, DROITE);
-  e1[ONE] = creation_transition_etat (ONE, ONE, ONE, ONE, DROITE);
-  e1[2] = creation_transition_etat (ONE, EMPTY, 2, EMPTY, GAUCHE);
+  e1[ZERO] = creation_transition_etat ( 1, ZERO, DROITE);
+  e1[ONE] = creation_transition_etat ( 1, ONE, DROITE);
+  e1[EMPTY] = creation_transition_etat ( 2, EMPTY, GAUCHE);
 
-  e2[ZERO] =creation_transition_etat (2, ZERO, 2, ONE, GAUCHE);
-  e2[ONE] = creation_transition_etat (2, ONE, ETAT_FINAL, ZERO, GAUCHE);
-  e2[2] = creation_transition_etat (2, EMPTY, ETAT_FINAL, EMPTY, GAUCHE);
+  e2[ZERO] =creation_transition_etat ( 2, ONE, GAUCHE);
+  e2[ONE] = creation_transition_etat ( ETAT_FINAL, ZERO, GAUCHE);
+  e2[EMPTY] = creation_transition_etat ( ETAT_FINAL, EMPTY, GAUCHE);
 
 
   table[0] = e0;

@@ -3,8 +3,6 @@
 
 struct transition_etat
 {
-  int etat_actuel;
-  int lu;
   int etat_suivant;
   int ecrit;
   int deplacement;
@@ -12,7 +10,8 @@ struct transition_etat
 typedef struct transition_etat transition_etat;
 
 transition_etat
-creation_transition_etat (int etat_actuel, int lu, int etat_suivant,
-			  int ecrit, int deplacement);
+creation_transition_etat (int etat_suivant,
+              int ecrit, int deplacement);
 
 #endif /* "table_transition.h" included. */
+
