@@ -5,11 +5,11 @@
 
 
 int
-main ()
+main (void)
 {
   // 1 = droite , -1 = gauche
 //transition_etat creation_transition_etat(int etat, etat_suite * nxt){
-  liste l;
+  liste l = NULL;
   l = creation (2, l);
   remplir_liste (l, 1);
   afficher (l);
