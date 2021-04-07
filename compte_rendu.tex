@@ -8,7 +8,7 @@
 \usepackage[dvips]{graphicx}
 \usepackage[hidelinks]{hyperref}
 \pagestyle{empty}
-\setlength{\parindent}{0cm}
+\setlength{\parindent}{1em}
 
 
 \title{Machine de turing}
@@ -100,11 +100,11 @@
         Chaque ligne du tableau est créée par notre fonction creation\_transition\_etat. 
         
         \begin{minted}{c}
-        creation_transition_etat(int etat_actuel, int lu, 
-                                 int etat_suivant, int ecrit, int deplacement )
+        creation_transition_etat(int etat_suivant 
+                                    ,int ecrit, int deplacement )
         \end{minted}
         
-        On retrouve bien les titres des colonnes de notre tableau.
+        On retrouve bien les titres des colonnes de notre tableau, sauf l'état actuel qui se trouve dans notre code action\_etat et lu lui correspond au nombre lu sur la bande que le programme interpretera.
         
         `deplacement` est sous la forme d'un entier, (1) représente le fait d'aller à droite et ( - 1) aller à gauche.
         
@@ -115,42 +115,66 @@
           \hline
           état actuel & élément lu & élément  écrit & déplacement & état suivant\\
           \hline
-          état 1 & 2 & 2 & droite & état 2  \\
+          état 1 & EMPTY & EMPTY & DROITE & état 2  \\
           \hline
         \end{tabular}
         
         \begin{minted}{c}
-        transition_etat e1_2_lect = creation_transition_etat(0,2,1,2,1);
+        transition_etat e1_2_lect = creation_transition_etat(1,2,1);
         \end{minted}
         
-        L’état actuel est 1 (plutôt 0 dans notre code car on a choisi de commencer à partir de 0), il lit 2, il écrit 2, ensuite se déplace de 1 (droite) puis il passe a l’état suivant 1. 
+        L’état actuel est 1 (plutôt 0 dans notre code car on a choisi de commencer à partir de 0), il lit pour ce cas EMPTY (2) qui représente une case vide, il écrit 2, ensuite se déplace de 1 (droite) puis il passe a l’état suivant 1. 
         
 
     \subsection{La tête de lecture-écriture}
         Notre fonction action\_etat permet d'exécuter nos algorithmes (nos tables de transitions) sur notre bande, c'est en quelque sorte notre tête de lecture-écriture : 
         
         \begin{minted}{c}
-        void action_etat(liste l, transition_etat ** tab, int etat_actuel){
-            int fin = -1;
-            int i = 0;
-            while(etat_actuel != fin){
-                if(i == 3){
-                    i = 0;
-                }
-                if (l->nb == tab[etat_actuel][i].lu){
-                    l -> nb = tab[etat_actuel][i].ecrit;
-                    l = deplacement(l, tab[etat_actuel][i].deplacement);             
-                    etat_actuel = tab[etat_actuel][i].etat_suivant;
-                }
-                i++;
-               }
-           }
+        void action_etat (liste l, transition_etat **tab, int etat_actuel)
+        {
+            int svg;
+            while (etat_actuel != ETAT_FINAL)
+            {
+            	svg = l->nb;
+	            l->nb = tab[etat_actuel][l->nb].ecrit;
+                l = deplacement (l, tab[etat_actuel][svg].deplacement);
+	            etat_actuel = tab[etat_actuel][svg].etat_suivant;
+
+            }
+        }
         \end{minted}
         
-        Elle prend en entrée la bande (liste l), le tableau de transaction écrit précédemment (transition\_etat ** tab) et enfin l'état actuel (int etat\_actuel).
+        Elle prend en entrée la bande (liste l), le tableau de transaction écrit précédemment ( \mintinline{c}{transition_etat ** tab}) et enfin l'état actuel (\mintinline{c}{int etat_actuel}).
         
         La fonction va donc interpréter, on pourrait même dire exécuter notre table de transition et l'appliquer à la bande, et va s'arrêter lorsque état actuel vaudra l'état final (que nous définissons comme étant -1).
-
+        
+    \subsection{Exécution du code}
+    \begin{verbatim}
+    Voilà notre liste : 
+    210102
+    
+    Voici la liste avec plus 1 : 
+    210112
+    
+    Voici la liste inverser : 
+    201002
+    
+    voici la liste additionnée avec le nombre : 3 : 
+    201112
+    
+    voici la liste soustraite par  1: 
+    201102
+    
+    voici la liste soustraite par 4 : 
+    200102
+    
+    voici la liste multipliée par 2 : 
+    2001002
+    
+    voici la liste multipliée par 2 : 
+    20010002
+    \begin 
+    \end{verbatim}
 
 \section{Les problématiques rencontrées}
     Notre première difficulté fut de savoir par où commencer, nous ne savions même pas précisément ce qu'était une machine de Turing malgré la consigne, nous avons alors contacté les enseignants.
