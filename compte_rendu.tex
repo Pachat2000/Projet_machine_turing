@@ -1,0 +1,167 @@
+\documentclass[a4paper,10pt]{article} 
+
+% permet de définir des commentaires
+\usepackage[T1]{fontenc} 
+\usepackage[french]{babel} 
+\usepackage{a4wide} 
+\usepackage{listings}
+\usepackage[dvips]{graphicx}
+\pagestyle{empty}
+\setlength{\parindent}{0cm}
+
+\begin{document}
+
+\begin{center}
+{\Large\bf
+Machine de turing\\}
+Projet C~: 
+\end{center}
+
+
+\section{Introduction}
+
+    Alan Turing est un mathématicien né le 23 juin 1912, et mort le 7 juin 1954. Il a formalisé le concept d'algorithme avec la machine de Turing.
+    \\[1 em]
+    Nous allons vous expliquer la machine de turing que nous avons faite. 
+    \\[1 em]
+    Elle est composée d'une bande infini, sous la forme d'une liste doublement chaînée, sur laquelle il y a une tête de lecture-écriture, sous la forme d'une fonction (action\_etat), ainsi que des tables de transitions qui constituent nos programmes, sous la forme d'une suite d'objets de la structure transition\_etat.
+    
+    L'alphabet de notre bande est composé de 3 symboles : 
+    \begin{itemize}
+    \item 0 et 1 représentant les valeurs binaire
+    \item 2 représentant une case vide
+    \end{itemize}
+    
+\section{Le code}
+    \subsection{La bande}
+        Cette structure permet de créer un élément de notre bande :
+        \begin{lstlisting}[language=c]
+        struct element{ 
+        	int nb;
+        	struct element * previous;
+        	struct element * next;
+        };
+        
+        typedef struct element element_t; // taille d'un element 
+        \end{lstlisting}
+        
+        Nous voyons que la structure possède trois attributs : 
+        
+        \begin{itemize}
+        \item un entier nb, représentant le nombre écrit sur l'élément
+        \item un pointeur previous, qui pointe vers l'élément précédent
+        \item un pointeur next, qui pointe vers l'élément suivant
+        \end{itemize}
+        \begin{lstlisting}[language=c]
+        typedef struct element * liste;
+        \end{lstlisting}
+        
+        Ce typedef définit liste comme un raccourci d'un pointeur vers struct element. Lorsqu'on créera une instance de type liste, il pointera vers un élément de type element, en l'occurence le premier élement de notre bande, et ce premier élément pointera vers ses éléments adjacents (previous et next), qui pointeront vers leur éléments adjacents, etc. Ce qui fait que ce simple pointeur vers le premier élément permettra d'accéder à toute la liste.
+        \\[1 em]
+        
+        Il y a un certain nombre de fonctions que nous avons créer pour la structure liste, qui ne nécessitent pas d'explication approfondit, nous allons donc les survoler:
+        \begin{itemize}
+        \item append permet d'ajouter un élément à droite de l'élément courant
+        \item aller\_droite permet que l'élément courant devienne l'élément de droite
+        \item aller\_gauche permet que l'élément courant devienne l'élément de gauche
+        \item append\_vide\_gauche ajoute un élément vide à gauche, c'est utile quand on veut aller à gauche mais qu'on est déjà au bord gauche
+        \item remplir\_liste permet de choisir une des manières de remplir la liste
+        \item aller\_debut permet d'aller au premier élément de la liste, c'est utile à la création d'une liste car on finit au bout de la liste à la fin de la création
+        \end{itemize}
+        
+        Maintenant que nous avons notre bande, il faut que l'on agisse sur elle, pour cela on utilise des tables de transitions d'état, qui sont nos algorithmes.
+        
+    \subsection{Les tables de transitions}
+
+        Voici un exemple de table de transitions : 
+        \\[1 em]
+        \begin{tabular}{|l|l|l|l|l|}
+          \hline
+          état actuel & élément lu & élément  écrit & déplacement & état suivant\\
+          \hline
+          état 1 & 2 & 2 & droite & état 2 \\   
+          \hline 
+          état 2 & 0 & 0 & droite &  état 2 \\
+          état 2 & 1 & 1 & droite &  état 2 \\
+          état 2 & 2 & 2 & gauche &  état 3 \\
+          \hline
+          état 3 & 0 & 1 & gauche & état Final \\   
+          état 3 & 1 & 0 & gauche & état 3 \\  
+          état 3 & 2 & 2 & gauche & état Final \\
+          \hline
+        \end{tabular}
+        \\[1 em] 
+        
+        Chaque ligne du tableau est créée par notre fonction creation\_transition\_etat. 
+        
+        \begin{lstlisting}[language=c]
+        creation_transition_etat(int etat_actuel, int lu, int etat_suivant, int ecrit, int deplacement )
+        \end{lstlisting}
+        
+        On retrouve bien les titres des colonnes de notre tableau.
+        
+        `deplacement` est sous la forme d'un entier, (1) représente le fait d'aller à droite et ( - 1) aller à gauche.
+        
+        Au cas où ça ne serait pas clair, voici une création d'une ligne d'une table de transition.
+        \\[1 em] 
+        
+        \begin{tabular}{|l|l|l|l|l|}
+          \hline
+          état actuel & élément lu & élément  écrit & déplacement & état suivant\\
+          \hline
+          état 1 & 2 & 2 & droite & état 2  \\
+          \hline
+        \end{tabular}
+        
+        \begin{lstlisting}[language=c]
+        transition_etat e1_2_lect = creation_transition_etat(0,2,1,2,1);
+        \end{lstlisting}
+        
+        L’état actuel est 1 (plutôt 0 dans notre code car on a choisi de commencer à partir de 0), il lit 2, il écrit 2, ensuite se déplace de 1 (droite) puis il passe a l’état suivant 1. 
+        \\[1 em]
+
+    \subsection{La tête de lecture-écriture}
+        Notre fonction action\_etat permet d'exécuter nos algorithmes (nos tables de transitions) sur notre bande, c'est en quelque sorte notre tête de lecture-écriture : 
+        
+        \begin{lstlisting}[language=c]
+        void action_etat(liste l, transition_etat ** tab, int etat_actuel){
+            int fin = -1;
+            int i = 0;
+            while(etat_actuel != fin){
+                if(i == 3){
+                    i = 0;
+                }
+                if (l->nb == tab[etat_actuel][i].lu){
+                    l -> nb = tab[etat_actuel][i].ecrit;
+                    l = deplacement(l, tab[etat_actuel][i].deplacement);             
+                    etat_actuel = tab[etat_actuel][i].etat_suivant;
+                }
+                i++;
+               }
+           }
+        \end{lstlisting}
+        
+        Elle prend en entrée la bande (liste l), le tableau de transaction écrit précédemment (transition\_etat ** tab) et enfin l'état actuel (int etat\_actuel).
+        \\[1 em] 
+        La fonction va donc interpréter, on pourrait même dire exécuter notre table de transition et l'appliquer à la bande, et va s'arrêter lorsque état actuel vaudra l'état final (que nous définissons comme étant -1).
+
+
+\section{Les problématiques rencontrées}
+    Notre première difficulté fut de savoir par où commencer, nous ne savions même pas précisément ce qu'était une machine de Turing malgré la consigne, nous avons alors contacté les enseignants.
+    \\[1 em] 
+    Les explications des professeurs n'ont été qu'à moitié comprisent ce qui fait que notre code fut hors-sujet, nous n'avions pas créer de machine de Turing bien que nous le pensions.
+    \\[1 em] 
+    Nonobstant, la bonne habitude qu'est de demander la validation des professeurs au moindre changement nous a permis de vite nous rendre compte que nous faisions fausse route.
+    \\[1 em] 
+    En fin de compte, nous n'avons pas fait face à tant de soucis que ça, la seule chose nous ayant fait défaut fut de nous orienter.
+    
+\section{Conclusion}
+    Nous avons choisi ce projet car nous savions que les machines de Turing étaient une des notions fondamentale de l'informatique. Comprendre cela était important pour nous, programmeurs en herbe.
+    \\[1 em] 
+    Ce fut un projet long mais pas tant compliqué qu'on le pensait. En tout cas, ce fut passionnant, et particulièrement les tables de transition ! Sans conteste la partie la plus amusante de ce projet.
+    \\[1 em] 
+    Merci d'avoir lu !
+    \\[1 em] 
+    JAVAID Mohammad-Habib et ELSEGAHY Rayan
+\end{document}
+
