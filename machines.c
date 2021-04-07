@@ -22,7 +22,7 @@ void
 add1 (liste l)
 {				// permet d'ajouter 1 à la bande
 //_________________________________________________________________
-//transition_etat eX_Y_lect = creation_transition_etat(int etat actuel, int lu, int nouvelle_etat, int écrit, int deplacement)
+//e0[État actuel] = creation_transition_etat ( État suivant, Élément écrit, Déplacement); //  3 ème argument = ZERO car transition d'état inutile, normalement y a un direction 
     transition_etat *table[3];
     transition_etat e0[3];
     transition_etat e1[3];

@@ -7,8 +7,6 @@
 int
 main (void)
 {
-  // 1 = droite , -1 = gauche
-//transition_etat creation_transition_etat(int etat, etat_suite * nxt){
   liste l = NULL;
   printf("Voilà notre liste : ");
   l = creation (2, l);
