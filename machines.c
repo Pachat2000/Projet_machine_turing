@@ -1,9 +1,6 @@
 void action_etat(liste l, transition_etat ** tab, int etat_actuel){
 	int fin = -1;
 	int i = 0;
-	/*if( (liste == NULL) || (tab == NULL)){
-	return;
-	}*/
 	while(etat_actuel != fin){
 	if(i == 3){
 		i = 0;
@@ -23,7 +20,7 @@ void action_etat(liste l, transition_etat ** tab, int etat_actuel){
 
 void add1(liste l){ // permet d'ajouter 1 à la bande
 //_________________________________________________________________
-//etat_suite creation_etat_suite(int etat_suivant, int ecrit, int deplacement){
+//transition_etat e1_2_lect = creation_transition_etat(int etat actuel, int lu, int nouvelle_etat, int écrit, int deplacement)
 	transition_etat * table[3];
 	transition_etat e0[3];
 	transition_etat e1[3];
@@ -37,8 +34,7 @@ void add1(liste l){ // permet d'ajouter 1 à la bande
 		
 	transition_etat e1_1_lect = creation_transition_etat(0,1,1,1,0);
 	e0[2] = e1_1_lect;
-//_________________________________________________________________
-
+	
 	transition_etat e2_0_lect = creation_transition_etat(1,0,1,0,1);
 	e1[0] = e2_0_lect;
 
@@ -48,8 +44,6 @@ void add1(liste l){ // permet d'ajouter 1 à la bande
 	transition_etat e2_2_lect = creation_transition_etat(1,2, 2,2,-1);
 	e1[2] = e2_2_lect;
 
-//_________________________________________________________________
-//int action_etat(int etat, transition_etat zero, transition_etat un, transition_etat deux, int *liste, int position){ /
 	transition_etat e3_0_lect = creation_transition_etat(2,0, -1,1,-1);
 	e2[0] = e3_0_lect;
 
