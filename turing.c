@@ -14,25 +14,25 @@ main (void)
   remplir_liste (l, 1);
   afficher (l);
   add1 (l);
-  printf ("Voici le liste al plus 1 : \n");
+  printf ("Voici la liste avec plus 1 : \n");
   afficher (l);
   inverse (l);
-  printf ("Voici le liste inverser : \n");
+  printf ("Voici la liste inverser : \n");
   afficher (l);
   addition (l, 3);
-  printf ("voici le nouveau liste : \n");
+  printf ("voici la nouvelle liste addition avec %d : \n",3);
   afficher (l);
   soustract_1 (l);
-  printf ("voici le nouveau liste al moin 1: \n");
+  printf ("voici la avel moin 1: \n");
   afficher (l);
   sous (l, 4);
-  printf ("voici le nouveau liste soustrait : \n");
+  printf ("voici la nouvelle liste soustrait par %d : \n", 4);
   afficher (l);
   multiplieBy2 (l);
-  printf ("voici le nouveau liste multiplier par 2 : \n");
+  printf ("voici la nouvelle liste multiplier par 2 : \n");
   afficher (l);
   multiplieBy2 (l);
-  printf ("voici le nouveau liste multiplier par 2 : \n");
+  printf ("voici la nouvelle liste multiplier par 2 : \n");
   afficher (l);
 
 }
