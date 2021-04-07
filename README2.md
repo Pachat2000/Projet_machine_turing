@@ -4,6 +4,11 @@
 | Elsegahy        | Rayan  |
 | Javaid-Mohammad | Habib  |
 
+## Compiler 
+
+Voici la ligne à entrer dans le terminal :
+``` gcc turing.c -o turing.out```
+
 ## La mise en place de la structure de notre machine de Turing:
 
 **En résumé**: ça se présente sous la forme (etat, lu) -> (nouvel_etat, ecrit, déplacement)
